@@ -1,5 +1,7 @@
 pub mod auth;
+pub mod guest_view;
 pub mod invitations;
+pub mod rsvp;
 pub mod templates;
 
 use axum::{routing::get, Json, Router};
@@ -14,7 +16,8 @@ pub fn api_routes() -> Router<AppState> {
         .nest("/auth", auth::routes())
         .nest("/templates", templates::routes())
         .nest("/invitations", invitations::routes())
-    // .nest("/rsvp", rsvp::routes())
+        .nest("/rsvp", rsvp::routes())
+        .nest("/undangan", guest_view::routes())
     // .nest("/payments", payments::routes())
     // .nest("/media", media::routes())
 }

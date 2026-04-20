@@ -5,6 +5,7 @@ use serde_json::json;
 
 /// Unified application error type.
 /// Each variant maps to an HTTP status code and user-facing message.
+#[allow(dead_code)]
 #[derive(Debug, thiserror::Error)]
 pub enum AppError {
     #[error("Not found: {0}")]

@@ -1,11 +1,10 @@
 use axum::{
     extract::{Path, State},
-    middleware,
     routing::{get, post, put},
     Json, Router,
 };
 use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use uuid::Uuid;
 
 use crate::{

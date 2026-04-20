@@ -1,3 +1,5 @@
+pub mod auth;
+
 use axum::{routing::get, Json, Router};
 use serde_json::{json, Value};
 
@@ -5,9 +7,9 @@ use crate::AppState;
 
 /// Compose all API sub-routes.
 pub fn api_routes() -> Router<AppState> {
-    Router::new().route("/health", get(health_check))
-    // Future route groups:
-    // .nest("/auth", auth::routes())
+    Router::new()
+        .route("/health", get(health_check))
+        .nest("/auth", auth::routes())
     // .nest("/templates", templates::routes())
     // .nest("/invitations", invitations::routes())
     // .nest("/rsvp", rsvp::routes())

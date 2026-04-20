@@ -19,8 +19,8 @@ pub fn routes() -> Router<AppState> {
     Router::new()
         // Protected routes (Protected by AuthUser extractor present in handlers)
         .route("/", post(create_invitation).get(list_invitations))
-        .route("/:id", get(get_invitation))
-        .route("/:id/design", put(update_design))
+        .route("/{id}", get(get_invitation))
+        .route("/{id}/design", put(update_design))
 }
 
 #[derive(Deserialize)]

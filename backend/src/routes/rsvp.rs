@@ -18,9 +18,9 @@ use crate::{
 pub fn routes() -> Router<AppState> {
     Router::new()
         // Public endpoints
-        .route("/:invitation_id", post(submit_rsvp))
+        .route("/{invitation_id}", post(submit_rsvp))
         // Protected endpoints (Membutuhkan AuthUser dalam handler)
-        .route("/:invitation_id", get(list_rsvps))
+        .route("/{invitation_id}", get(list_rsvps))
 }
 
 #[derive(Deserialize)]

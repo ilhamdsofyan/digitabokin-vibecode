@@ -14,7 +14,7 @@ use crate::{
 };
 
 pub fn routes() -> Router<AppState> {
-    Router::new().route("/:slug", get(get_guest_view))
+    Router::new().route("/{slug}", get(get_guest_view))
 }
 
 #[derive(Serialize)]

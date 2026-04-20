@@ -1,0 +1,52 @@
+[package]
+name = "digitaria-backend"
+version = "0.1.0"
+edition = "2021"
+description = "Backend API for Digitaria - Wedding Digital Invitation SaaS"
+
+[dependencies]
+# Web framework
+axum = { version = "0.8", features = ["json", "multipart"] }
+tokio = { version = "1", features = ["full"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = ["cors", "trace", "limit"] }
+
+# Database
+sea-orm = { version = "1", features = [
+    "sqlx-postgres",
+    "runtime-tokio-rustls",
+    "macros",
+    "with-uuid",
+    "with-chrono",
+    "with-json",
+] }
+sqlx = { version = "0.8", features = [
+    "postgres",
+    "runtime-tokio-rustls",
+    "json",
+    "uuid",
+    "chrono",
+] }
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Auth
+jsonwebtoken = "9"
+argon2 = "0.5"             # Password hashing
+uuid = { version = "1", features = ["v4", "serde"] }
+
+# HTTP client (for Midtrans API, Google OAuth)
+reqwest = { version = "0.12", features = ["json"] }
+
+# Utilities
+chrono = { version = "0.4", features = ["serde"] }
+dotenvy = "0.15"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+thiserror = "2"
+anyhow = "1"
+
+# Validation
+validator = { version = "0.19", features = ["derive"] }

@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    container_name: digitaria-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: digitaria
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: digitaria
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U digitaria"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Rust Backend API (for production builds)
+  # Uncomment when ready to containerize:
+  # backend:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   container_name: digitaria-api
+  #   restart: unless-stopped
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   environment:
+  #     DATABASE_URL: postgres://digitaria:secret@db:5432/digitaria
+  #     HOST: 0.0.0.0
+  #     PORT: 3001
+  #     JWT_SECRET: ${JWT_SECRET}
+  #   ports:
+  #     - "3001:3001"
+
+volumes:
+  pgdata:

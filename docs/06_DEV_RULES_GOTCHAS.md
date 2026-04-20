@@ -115,3 +115,8 @@ Format: `<type>: <description>`
 
 ### 11. Password Hashing
 Selalu pakai **Argon2** (bukan bcrypt/scrypt). Sudah ter-setup di `auth_service.rs`.
+
+### 12. Middleware vs Extractor di Axum 0.8+
+Karena Axum sangat ketat dengan `State<S>` inference, menggunakan `.route_layer(middleware::from_fn(require_auth))` sering menyebabkan error `FromFn<..., (), ...>: Service` karena Axum gagal mengenali tipe state (`AppState`) jika di-chain secara kompleks.
+**Penyelesaian:** Hindari penggunaan `middleware::from_fn` untuk guard/auth jika middleware butuh akses ke State. Sebagai gantinya, **gunakan Custom Extractor**.
+Tulis logic auth/guard di dalam trait method `from_request_parts` (misal: `AuthUser`), lalu gunakan type `AuthUser` sebagai parameter di signature function handler API. Auth otomatis teraplikasikan tanpa mainan `.route_layer()`.

@@ -1,4 +1,6 @@
 pub mod auth;
+pub mod invitations;
+pub mod templates;
 
 use axum::{routing::get, Json, Router};
 use serde_json::{json, Value};
@@ -10,8 +12,8 @@ pub fn api_routes() -> Router<AppState> {
     Router::new()
         .route("/health", get(health_check))
         .nest("/auth", auth::routes())
-    // .nest("/templates", templates::routes())
-    // .nest("/invitations", invitations::routes())
+        .nest("/templates", templates::routes())
+        .nest("/invitations", invitations::routes())
     // .nest("/rsvp", rsvp::routes())
     // .nest("/payments", payments::routes())
     // .nest("/media", media::routes())
